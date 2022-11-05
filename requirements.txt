@@ -30,3 +30,4 @@ typing_extensions==4.4.0
 urllib3==1.26.12
 webdriver-manager==3.8.4
 wsproto==1.2.0
+wheel==0.38.2
