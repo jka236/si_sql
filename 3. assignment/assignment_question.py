@@ -18,12 +18,11 @@ Jonghyeok Kim
 The length of DB name : 10
 The name of DB: mydatabase
 
-6. submit <sqli_your_name> script in a <your_name> folder 
+6. submit your sqli_<your_name>.py
 
 e.g.
-jonghyeok-kim/
-|-- sqli_jonghyeok_kim.py
-|-- db_name.log
+sqli_jonghyeok_kim.py
+db_name.log
 
 Remove the above for your answer
 '''
